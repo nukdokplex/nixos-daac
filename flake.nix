@@ -32,6 +32,12 @@
     catppuccin-vsc = {
       url = "github:catppuccin/vscode";
     };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = inputs@{ nixpkgs, nixpkgs-unstable, lanzaboote, home-manager, catppuccin, ... }:
@@ -121,6 +127,7 @@
                 imports = [
                   ./home/nukdokplex
                   catppuccin.homeManagerModules.catppuccin
+                  inputs.plasma-manager.homeManagerModules.plasma-manager
                   inputs.spicetify-nix.homeManagerModule
                 ];
               };
