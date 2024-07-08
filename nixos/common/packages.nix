@@ -46,6 +46,7 @@
     syncthing
     telegram-desktop
     vesktop
+    qbittorrent
 
     # entertainment
     cmatrix
