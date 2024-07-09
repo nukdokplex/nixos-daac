@@ -5,5 +5,6 @@
     ./secondary-mounts.nix
     ./wm.nix
     ./graphics.nix
+    ./virtualisation.nix
   ];
 }
