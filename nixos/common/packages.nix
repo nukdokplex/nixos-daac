@@ -58,6 +58,7 @@
     nil
     nixd
     nixpkgs-fmt
+    niv
 
     dig
   ];
