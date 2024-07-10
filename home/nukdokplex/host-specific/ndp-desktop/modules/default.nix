@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./wm
+    ./swaywm
     ./styling
     ./symlinks.nix
   ];
