@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, osConfig, ... }: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -6,9 +6,8 @@
 
     shellAliases = {
       "ll" = "ls -l";
-      "hms" = "home-manager switch --flake ~/ndp-nixos-daac/.#nukdokplex";
-      "nrb" = "sudo nixos-rebuild boot --flake ~/ndp-nixos-daac/.#ndp-desktop";
-      "nrs" = "sudo nixos-rebuild switch --flake ~/ndp-nixos-daac/.#ndp-desktop";
+      "nrb" = "sudo nixos-rebuild boot --flake path:${config.home.homeDirectory}/nixos-daac/#${osConfig.networking.hostName}";
+      "nrs" = "sudo nixos-rebuild switch --flake path:${config.home.homeDirectory}/nixos-daac/#${osConfig.networking.hostName}";
     };
 
     oh-my-zsh = {

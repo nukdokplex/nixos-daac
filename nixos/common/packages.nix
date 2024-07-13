@@ -47,6 +47,7 @@
     telegram-desktop
     vesktop
     qbittorrent
+    rofi-wayland
 
     # entertainment
     cmatrix

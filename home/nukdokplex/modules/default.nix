@@ -9,5 +9,6 @@
     ./userdirs.nix
     ./vscode.nix
     ./zsh.nix
+    ./rofi.nix
   ];
 }
