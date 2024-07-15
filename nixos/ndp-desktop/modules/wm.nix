@@ -1,7 +1,5 @@
 { pkgs, ... }: {
-  programs.sway = {
+  programs.hyprland = {
     enable = true;
-    xwayland.enable = true;
-    package = pkgs.sway;
   };
 }

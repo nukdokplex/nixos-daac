@@ -1,10 +1,12 @@
 { ... }: {
   imports = [
+    ./graphics.nix
+    ./gvfs.nix
     ./network.nix
     ./printing.nix
     ./secondary-mounts.nix
-    ./wm.nix
-    ./graphics.nix
     ./virtualisation.nix
+    ./wm.nix
+    ./sound.nix
   ];
 }

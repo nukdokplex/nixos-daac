@@ -1,6 +1,7 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     catppuccin.enable = true;
     catppuccin.mode = "prependImport";
     package = pkgs.waybar;
@@ -8,12 +9,14 @@
     settings = {
       mainBar = {
         layer = "bottom";
-        position = "top";
-        margin-top = 7;
+        postition = "top";
+        margin-top = 10;
+        margin-bottom = 0; # hyprland already added gap
+        margin-left = 10;
+        margin-right = 10;
         modules-left = [
-          "sway/workspaces"
-          "sway/mode"
-          "sway/window"
+          "hyprland/workspaces"
+          "hyprland/window"
         ];
         modules-center = [
           "clock"
@@ -21,18 +24,18 @@
         modules-right = [
           "wireplumber"
           "tray"
-          "sway/language"
+          "hyprland/language"
         ];
-        "sway/workspaces" = {
+        "hyprland/workspaces" = {
           all-outputs = false;
           format = "{name}";
           disable-scroll = false;
           disable-click = false;
         };
-        "sway/window" = {
-          format = "{app_id}:{shell}";
+        "hyprland/window" = {
+          format = "{class}";
         };
-        "clock" = {
+        clock = {
           format = "{:L%A, %d %B %Y - %H:%M:%S}";
           interval = 1;
           tooltip-format = "<tt><small>{calendar}</small></tt>";
@@ -50,35 +53,41 @@
               today = "<span color='#ff6699'><b><u>{}</u></b></span>";
             };
           };
-          # actions = {
-          #   on-click-right = "mode";
-          #   on-click-forward = "tz_up";
-          #   on-click-backward = "tz_down";
-          #   on-scroll-up = "shift_up";
-          #   on-scroll-down = "shift_down";
-          # };
+          actions = {
+            on-click-right = "mode";
+            on-click-forward = "tz_up";
+            on-click-backward = "tz_down";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
         };
-        "wireplumber" = {
+        wireplumber = {
           format = "{volume}% {icon}";
           format-icons = [ "" "" "" ];
           tooltip = true;
           tooltip-format = "{node_name}";
           max-volume = 150.0;
+          on-click = lib.getExe pkgs.pavucontrol;
         };
-        "sway/language" = {
-          format = "{short}";
+        "hyprland/language" = {
+          format = "{}";
+          format-en = "EN";
+          format-ru = "RU";
         };
       };
     };
 
     style = ''
-      @define-color primary @${config.catppuccin.accent};
+      @define-color primary @green;
 
       #waybar {
         font-family: JetBrainsMono Nerd Font Mono, monospace;
-        font-size: 1em;
-        background-color: transparent;
+        font-size: 18px;
+        background-color: @crust;
         color: @text;
+        border-radius: 17px;
+        border: 2px solid @primary;
+        padding: 10px 10px;
       }
 
       #waybar.hidden {
@@ -88,30 +97,38 @@
       .modules-left > * > *,
       .modules-right > * > *,
       .modules-center > * > * {
-        padding: 0.4em 0.4em;
-        margin: 0em 0.4em;
+        padding: 0px 6px;
+        margin: 12px 6px;
         background-color: @base;
-        border-radius: 0.8em;
-        /* border: 0.1em solid @primary;  */
+        border-radius: 7.5px;
+        border: 0.5px solid @surface0;
       }
 
       .modules-left > :first-child > * {
-        margin-left: 1em;
+        margin-left: 12px;
       }
 
       .modules-right > :last-child > * {
-        margin-right: 1em;
+        margin-right: 12px;
+      }
+
+      #workspaces {
+        padding: 0px 0px;
       }
 
       #workspaces > * {
-        padding: 0em;
-        border-radius: 0em;
-        margin: 0em 0.2em; 
+        padding: 0px 3px;
+        border-radius: 7px;
+        margin: 0px 0px; 
       }
 
-      #workspaces > .focused {
+      #workspaces .active {
         background-color: @primary;
         color: @base;
+      }
+
+      #tray > widget > image {
+        margin: 0px 6px;
       }
     '';
   };

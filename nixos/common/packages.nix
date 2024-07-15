@@ -21,9 +21,8 @@
     zsh
     gnutar
     unrar-free
-
-    # browser
-    chromium
+    killall
+    inotify-tools
     
     # misc tools
     android-tools
@@ -39,6 +38,7 @@
     kdenlive
     mpv
     obs-studio
+    catppuccinifier-gui
 
     # essentials
     keepassxc

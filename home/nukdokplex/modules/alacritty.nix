@@ -7,4 +7,5 @@
       font.normal.family = "JetBrainsMono Nerd Font Mono";
     };
   };
+  
 }
