@@ -3,6 +3,7 @@
     enable = true;
     settings = {
       full = true;
+      toggle_hud = "Shift_R+F12";
     };
   };
 
