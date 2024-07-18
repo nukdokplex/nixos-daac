@@ -54,6 +54,26 @@
         "type": "github"
       }
     },
+    "epson_201310w": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721237211,
+        "narHash": "sha256-+guvPEQG5SEWLdmsXci7mSH81DuLvm2aiBVawCpAE84=",
+        "owner": "nukdokplex",
+        "repo": "epson_201310w",
+        "rev": "b96b0138eaaf4fe5e85ecc81a623c69fcb910287",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nukdokplex",
+        "repo": "epson_201310w",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -315,6 +335,7 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "catppuccin-vsc": "catppuccin-vsc",
+        "epson_201310w": "epson_201310w",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs_2",
