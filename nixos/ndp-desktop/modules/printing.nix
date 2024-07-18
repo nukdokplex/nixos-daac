@@ -1,17 +1,21 @@
-{ pkgs, ... }: {
+{ pkgs, flakeInputs, ... }: {
   services.printing = {
     enable = true;
-    # drivers = with pkgs; [ epson_201207w ];
+    logLevel = "debug";
+    drivers = [
+      flakeInputs.epson_201310w.packages.x86_64-linux.default
+      pkgs.gutenprint
+    ];
   };
 
-  # hardware.printers = {
-  #   ensurePrinters = [
-  #     {
-  #       name = "Epson_L120";
-  #       location = "Home";
-  #       deviceUri = "usb://EPSON/L120%20Series?serial=544E594B3132383744";
-  #       model = "EPSON_L110.ppd";
-  #     }
-  #   ];
-  # };
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "Epson_L120_Series";
+        location = "Home";
+        deviceUri = "usb://EPSON/L120%20Series?serial=544E594B3132383744";
+        model = "EPSON_L120.ppd";
+      }
+    ];
+  };
 }
