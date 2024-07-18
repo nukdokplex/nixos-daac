@@ -30,6 +30,11 @@
     package = pkgs.swaylock;
     catppuccin.enable = true;
   };
+
+  # notifications
+  services.swaync = {
+    enable = true;
+  };
   
   # wallpapers
   xdg.configFile."wallpaper0.png" = {
