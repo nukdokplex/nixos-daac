@@ -8,5 +8,6 @@
     ./virtualisation.nix
     ./wm.nix
     ./sound.nix
+    ./docker.nix
   ];
 }
