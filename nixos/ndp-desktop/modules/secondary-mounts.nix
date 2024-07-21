@@ -19,6 +19,15 @@
       options = "rw,nosuid,nodev,relatime,errors=remount-ro,x-mount.mkdir=0755";
     }
     {
+      name = "data-virtual.mount";
+      enable = true;
+      wantedBy = [ "multi-user.target" ];
+      what = "/dev/disk/by-uuid/efcf86fd-a475-4957-a99f-81946caf808d";
+      where = "/data/virtual";
+      type = "ext4";
+      options = "rw,nosuid,nodev,noatime,errors=remount-ro,x-mount.mkdir=0755";
+    }
+    {
       name = "data-passport.mount";
       enable = true;
       wantedBy = [ "multi-user.target" ];
