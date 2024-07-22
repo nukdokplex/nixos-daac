@@ -29,10 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin-vsc = {
-      url = "github:catppuccin/vscode";
-    };
-
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,9 +54,6 @@
           "spotify"
           "epson_201207w"
           "Oracle_VM_VirtualBox_Extension_Pack"
-        ];
-        overlays = [
-          inputs.catppuccin-vsc.overlays.default
         ];
       };
 

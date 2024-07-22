@@ -1,21 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
 
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
 
     extensions = with pkgs.vscode-extensions; [
-      (catppuccin.catppuccin-vsc.override {
-        accent = "green";
-        boldKeywords = true;
-        italicComments = true;
-        italicKeywords = true;
-        extraBordersEnabled = false;
-        workbenchMode = "default";
-        bracketMode = "rainbow";
-        colorOverrides = { };
-        customUIColors = { };
-      })
+      catppuccin.catppuccin-vsc
       catppuccin.catppuccin-vsc-icons
       jnoortheen.nix-ide
       naumovs.color-highlight
@@ -30,11 +20,12 @@
       "editor.selectionClipboard" = false;
 
       # prevent VSCode from modifying the terminal colors
-      "terminal.integrated.minimumContrastRatio" = 1;
+      # "terminal.integrated.minimumContrastRatio" = 1;
       "window.titleBarStyle" = "custom";
 
       # catppuccin settings
       "workbench.colorTheme" = "Catppuccin Mocha";
+      "catppuccin.accentColor" = config.catppuccin.accent;
       "catppuccin.customUIColors" = {
         "mocha" = {
           "statusBar.foreground" = "accent";
