@@ -11,5 +11,6 @@
     ./sound.nix
     ./zsh.nix
     ./user.nix
+    ./gamemode.nix
   ];
 }
