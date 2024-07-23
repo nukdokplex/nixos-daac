@@ -1,6 +1,6 @@
 { ... }: {
   programs.plasma = {
-    enable = true true;
+    enable = true;
 
     hotkeys.commands = {
       "launch-alacritty" = {
