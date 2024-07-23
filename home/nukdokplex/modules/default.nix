@@ -11,6 +11,5 @@
     ./userdirs.nix
     ./vscode.nix
     ./zsh.nix
-    ./style.nix
   ];
 }

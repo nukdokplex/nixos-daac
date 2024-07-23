@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./gnome.nix
+    ./plasma.nix
     ./network.nix
   ];
 }
