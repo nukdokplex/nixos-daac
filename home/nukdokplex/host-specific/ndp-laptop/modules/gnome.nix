@@ -1,5 +1,5 @@
 { ... }: {
-  programs.dconf = {
+  dconf = {
     enable = true;
   };
 }
