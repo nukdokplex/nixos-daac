@@ -32,7 +32,7 @@
     scrcpy
 
     # media
-    handbrake
+    # handbrake
     imv
     inkscape
     kdenlive

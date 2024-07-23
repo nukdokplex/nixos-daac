@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, flakeInputs, ... }:
 let
   # apps
   terminal = lib.getExe pkgs.alacritty;
@@ -33,6 +33,10 @@ in
     enable = true;
     xwayland.enable = true;
     catppuccin.enable = true;
+
+    plugins = [
+      # flakeInputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
+    ];
 
     settings = {
       # autostarts
@@ -290,6 +294,11 @@ in
           "specialWorkspace, 1, 3, md3_decel, slidevert"
         ];
       };
+
+      # plugins
+      # plugins = {
+      #   hyprtrails.color = "$active";
+      # };
 
       env = [
         # GTK 

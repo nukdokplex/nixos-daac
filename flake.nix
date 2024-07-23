@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=nixos-24.05";
-    };
-
-    nixpkgs-unstable = {
       url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
 
@@ -16,12 +12,21 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin = {
       url = "github:catppuccin/nix";
+    };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
 
     spicetify-nix = {
@@ -41,7 +46,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, lanzaboote, home-manager, catppuccin, ... }:
+  outputs = inputs@{ nixpkgs, lanzaboote, home-manager, catppuccin, ... }:
     let
       system = "x86_64-linux";
       stateVersion = "24.05";
@@ -55,17 +60,16 @@
           "epson_201207w"
           "Oracle_VM_VirtualBox_Extension_Pack"
         ];
+        config.permittedInsecurePackages = [
+          "electron-27.3.11"
+        ];
       };
 
       pkgs = import nixpkgs nixpkgs-config;
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-      };
     in
     {
       nixosConfigurations.ndp-desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit pkgs-unstable;
           inherit stateVersion;
           flakeInputs = inputs;
         };
@@ -92,7 +96,6 @@
               };
 
               extraSpecialArgs = {
-                inherit pkgs-unstable;
                 inherit stateVersion;
                 inherit (inputs) spicetify-nix;
                 flakeInputs = inputs;
@@ -104,7 +107,6 @@
       };
       nixosConfigurations.ndp-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit pkgs-unstable;
           inherit stateVersion;
           flakeInputs = inputs;
         };
@@ -132,7 +134,6 @@
               };
 
               extraSpecialArgs = {
-                inherit pkgs-unstable;
                 inherit stateVersion;
                 inherit (inputs) spicetify-nix;
                 flakeInputs = inputs;
