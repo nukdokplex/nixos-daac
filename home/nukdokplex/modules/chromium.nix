@@ -19,6 +19,12 @@
       { # ublock origin
         id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
       }
+      { # sponsorblock
+        id = "mnjggcdmjocbbbhaepdhchncahnbgone";
+      }
+      { # return yt dislikes
+        id = "gebbhagfogifgggkldgodflihgfeippi";
+      }
     ];
   };
 }
