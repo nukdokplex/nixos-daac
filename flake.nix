@@ -7,7 +7,18 @@
     };
 
     nixpkgs-unstable = {
-      url = "github:nixos/nixpkgs?ref=nixos-unstable";
+      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    ez-configs = {
+      url = "github:ehllie/ez-configs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     lanzaboote = {
@@ -41,106 +52,34 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, lanzaboote, home-manager, catppuccin, ... }:
-    let
-      system = "x86_64-linux";
-      stateVersion = "24.05";
-
-      nixpkgs-config = {
-        inherit system;
-        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-          "steam"
-          "steam-original"
-          "spotify"
-          "epson_201207w"
-          "Oracle_VM_VirtualBox_Extension_Pack"
-        ];
-      };
-
-      pkgs = import nixpkgs nixpkgs-config;
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-      };
-    in
+  outputs = inputs: inputs.flake-parts.lib.mkFlake
+    { inherit inputs; }
     {
-      nixosConfigurations.ndp-desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit pkgs-unstable;
-          inherit stateVersion;
-          flakeInputs = inputs;
+      imports = [
+        inputs.ez-configs.flakeModule
+      ];
+
+      systems = [
+        "x86_64-linux"
+      ];
+
+      ezConfigs = {
+        root = ./.;
+        home.extraSpecialArgs = {
+          assetsDirectory = ./assets;
+          inherit inputs;
         };
-
-        inherit pkgs;
-
-        modules = [
-          ./nixos/common
-          ./nixos/ndp-desktop
-          lanzaboote.nixosModules.lanzaboote
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-
-              users.nukdokplex = {
-                imports = [
-                  ./home/nukdokplex
-                  catppuccin.homeManagerModules.catppuccin
-                  inputs.spicetify-nix.homeManagerModule
-                ];
-              };
-
-              extraSpecialArgs = {
-                inherit pkgs-unstable;
-                inherit stateVersion;
-                inherit (inputs) spicetify-nix;
-                flakeInputs = inputs;
-                flakeRootPath = ./.;
-              };
-            };
-          }
-        ];
+        nixos.specialArgs = {
+          assetsDirectory = ./assets;
+          inherit inputs;
+        };
       };
-      nixosConfigurations.ndp-laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit pkgs-unstable;
-          inherit stateVersion;
-          flakeInputs = inputs;
+
+
+      perSystem = { pkgs, lib, system, ... }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
         };
-
-        inherit pkgs;
-
-        modules = [
-          ./nixos/common
-          ./nixos/ndp-laptop
-          lanzaboote.nixosModules.lanzaboote
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-
-              users.nukdokplex = {
-                imports = [
-                  ./home/nukdokplex
-                  catppuccin.homeManagerModules.catppuccin
-                  inputs.plasma-manager.homeManagerModules.plasma-manager
-                  inputs.spicetify-nix.homeManagerModule
-                ];
-              };
-
-              extraSpecialArgs = {
-                inherit pkgs-unstable;
-                inherit stateVersion;
-                inherit (inputs) spicetify-nix;
-                flakeInputs = inputs;
-                flakeRootPath = ./.;
-              };
-            };
-          }
-        ];
       };
     };
 }
