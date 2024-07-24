@@ -4,13 +4,14 @@
     ./console.nix
     ./env.nix
     ./fonts.nix
+    ./gamemode.nix
     ./misc.nix
     ./network.nix
+    ./openssh.nix
     ./sddm.nix
     ./services.nix
     ./sound.nix
-    ./zsh.nix
     ./user.nix
-    ./gamemode.nix
+    ./zsh.nix
   ];
 }
