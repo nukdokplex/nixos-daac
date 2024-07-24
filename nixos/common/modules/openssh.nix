@@ -7,7 +7,7 @@
       PrintMotd = true;
       PermitRootLogin = "no";
       PasswordAuthentication = false;
-      AllowGroups = "users";
+      AllowGroups = [ "users" ];
     };
 
     ports = [ 33727 ];
